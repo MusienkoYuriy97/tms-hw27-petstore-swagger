@@ -5,6 +5,7 @@ import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 import java.util.Optional;
 
 @Component
@@ -41,6 +42,22 @@ public class UserService {
             return false;
         }
         return !userDao.containsByUsername(username);
+    }
+
+    public boolean delete(String username) {
+        if (userDao.containsByUsername(username)){
+            User user = userDao.getByUsername(username).get();
+            userDao.delete(user);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public void update(String username, User user) {
+        if (userDao.containsByUsername(username)){
+            userDao.update(username,user);
+        }
     }
 
 }

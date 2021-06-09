@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class StoreController {
 
     @GetMapping("/inventory")
-    public ResponseEntity<String> get(){
+    public ResponseEntity<String> inventory(){
         return null;
     }
 

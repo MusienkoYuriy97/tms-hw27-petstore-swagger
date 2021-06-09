@@ -43,6 +43,15 @@ public class InMemoryUserDao implements UserDao {
     }
 
     @Override
+    public void update(String username, User user) {
+        for (User u : userList) {
+            if (u.getUsername().equals(username)){
+                u = user;
+            }
+        }
+    }
+
+    @Override
     public boolean containsById(int id) {
         return userList.stream()
                 .anyMatch(user -> user.getId() == id);

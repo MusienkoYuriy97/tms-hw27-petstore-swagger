@@ -48,28 +48,49 @@ public class UserController {
     }
 
     @DeleteMapping("/{username}")
-    public void delete(@PathVariable String username){
+    public ResponseEntity<?> delete(@PathVariable String username){
+        if (userService.delete(username)){
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
     }
 
 
     @PutMapping("/{username}")
     public void update(@PathVariable String username, @RequestBody User user){
+        userService.update(username, user);
 
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<User> get(@PathVariable String username){
-        return null;
+        User byUsername = userService.getByUsername(username);
+        if (byUsername == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(byUsername, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/createWithArray")
-    public void createWithArray(@RequestBody User[] user){
-
+    public ResponseEntity<?> createWithArray(@RequestBody User[] users){
+        for (User user : users) {
+            if (!userService.save(user)){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/createWithList")
-    public void createWithList(@RequestBody List<User> user){
+    public ResponseEntity<?> createWithList(@RequestBody List<User> users){
+        for (User user : users) {
+            if (!userService.save(user)){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
     }
 }

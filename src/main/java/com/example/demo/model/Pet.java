@@ -14,4 +14,5 @@ public class Pet {
     private Category category;
     private String name;
     private List<Tag> tags;
+    private PetStatus status;
 }

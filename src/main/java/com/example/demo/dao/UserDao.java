@@ -9,6 +9,7 @@ public interface UserDao {
     void delete(User user);
     Optional<User> getById(int id);
     Optional<User> getByUsername(String username);
+    public void update(String username, User user);
     boolean containsById(int id);
     boolean containsByUsername(String username);
     boolean checkLogin(String username, String password);
